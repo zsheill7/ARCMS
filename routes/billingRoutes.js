@@ -13,7 +13,7 @@ module.exports = app => {
       source: req.body.id, // obtained with Stripe.js
       description: "$5 for 50 credits"
     });
-    req.user.credits += 50;
+    req.user.google.credits += 50;
     const user = await req.user.save();
 
     res.send(user);

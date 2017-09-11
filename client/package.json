@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": {
-    "/auth/google": {
+    "/auth/*": {
       "target": "http://localhost:5000"
     },
     "/api/*": {
@@ -20,6 +20,7 @@
     "react-scripts": "1.0.10",
     "react-stripe-checkout": "^2.6.3",
     "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.71.5"

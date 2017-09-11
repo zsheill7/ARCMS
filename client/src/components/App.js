@@ -3,15 +3,16 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-import Header from "./Header";
-import Landing from "./Landing";
-import Payments from "./Payments";
-const Dashboard = () => <h2>Dashboard</h2>;
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
+import LandingPage from "./LandingPage";
+import Dashboard from "./Dashboard";
 const SurveyNew = () => <h2>SurveyNew</h2>;
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+    this.props.fetchLocalUser();
   }
 
   render() {
@@ -19,8 +20,18 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div>
-            <Header />
-            <Route exact path="/" component={Landing} />
+            <Route
+              exact
+              path="/"
+              component={
+                this.props.auth === undefined || this.props.auth == null
+                  ? LandingPage
+                  : Dashboard
+              }
+            />
+
+            <Route exact path="/login" component={LoginForm} />
+            <Route exact path="/signup" component={SignupForm} />
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={SurveyNew} />
           </div>

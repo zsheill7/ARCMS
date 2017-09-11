@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Menu, Button, Container } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import Payments from "./Payments";
 
-class Header extends Component {
+class FixedMenu extends Component {
   renderContent() {
     switch (this.props.auth) {
       case null:
@@ -39,7 +38,7 @@ class Header extends Component {
     return (
       <div>
         <Container>
-          <Menu pointing secondary size="large">
+          <Menu inverted pointing secondary size="large">
             <Menu.Item href={this.props.auth ? "/surveys" : "/"} as="a" active>
               Home
             </Menu.Item>
@@ -60,4 +59,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(FixedMenu);
