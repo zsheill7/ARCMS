@@ -12,7 +12,8 @@ const SurveyNew = () => <h2>SurveyNew</h2>;
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    this.props.fetchLocalUser();
+    const token = localStorage.getItem("token");
+    this.props.fetchLocalUser({ token });
   }
 
   render() {

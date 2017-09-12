@@ -19,7 +19,6 @@ class SignupForm extends React.Component {
   handleFormValues(values) {
     console.log("in SignupForm handleFormSubmit");
     console.log(values);
-    const { email, password } = values;
     this.props.signupUser(values);
   }
 
