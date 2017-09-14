@@ -1,23 +1,24 @@
 import React, { Component } from "react";
-import { Segment, Container } from "semantic-ui-react";
-import FixedMenu from "./FixedMenu";
+import { Segment, Container, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Segment
-          inverted
-          textAlign="center"
-          style={{
-            minHeight: 700,
-            padding: "1em 0em",
-            backgroundImage: "url('/assets/images/datboi.jpg')"
-          }}
-          vertical
-        >
-          <FixedMenu />
+        <Segment textAlign="center" vertical>
           <Container text />
+          <div>
+            <Link to="/surveys/new">
+              <Button
+                style={{ position: "absolute", top: 100, right: 50 }}
+                size="massive"
+                color="teal"
+                icon="plus"
+                circular
+              />
+            </Link>
+          </div>
         </Segment>
       </div>
     );

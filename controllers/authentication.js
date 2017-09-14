@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const keys = require("../config/keys");
 const User = mongoose.model("users");
 const passport = require("passport");
+const jwt_decode = require("jwt-decode");
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
@@ -11,8 +12,14 @@ function tokenForUser(user) {
 
 exports.fetchUser = (req, res, next) => {
   console.log("req.token");
-  console.log(req.body.token.sub);
-  User.findById(req.body.token.sub, (err, user) => {
+  console.log(req.body.token);
+  const decodedToken = jwt_decode(req.body.token);
+  console.log(decodedToken.sub);
+  /*passport.authenticate("jwt", decodedToken, (req, res) => {
+    console.log("jwt authenticate");
+    res.send(req.user);
+  });*/
+  User.findById(decodedToken.sub, (err, user) => {
     if (err) {
       console.log(err);
     }

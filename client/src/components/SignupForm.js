@@ -12,8 +12,8 @@ import {
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import FixedMenu from "./FixedMenu";
 import { reduxForm, Field } from "redux-form";
+import validateEmails from "../utils/validateEmails";
 
 class SignupForm extends React.Component {
   handleFormValues(values) {
@@ -22,18 +22,44 @@ class SignupForm extends React.Component {
     this.props.signupUser(values);
   }
 
-  renderInput({ label, placeholder, icon, ...field }) {
+  renderInput({
+    label,
+    placeholder,
+    icon,
+    type,
+    meta: { touched, error, warning },
+    ...field
+  }) {
     return (
       <Form.Field>
         <Input
           {...field.input}
           placeholder={placeholder}
           icon={icon}
-          type="text"
+          type={type}
           className="form-control"
         />
+        {touched &&
+          ((error &&
+            <span style={{ color: "red" }}>
+              {error}
+            </span>) ||
+            (warning &&
+              <span>
+                {warning}
+              </span>))}
       </Form.Field>
     );
+  }
+
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+      );
+    }
   }
 
   render() {
@@ -50,7 +76,6 @@ class SignupForm extends React.Component {
         }}
         vertical
       >
-        <FixedMenu />
         <Container text>
           <div className="login-form">
             <style>{`
@@ -86,6 +111,14 @@ class SignupForm extends React.Component {
                       component={this.renderInput}
                       icon="lock"
                       placeholder="Password"
+                      type="password"
+                    />
+                    <Field
+                      name="passwordConfirm"
+                      component={this.renderInput}
+                      icon="lock"
+                      placeholder="Confirm Password"
+                      type="password"
                     />
                     <Button fluid action="submit">
                       Sign Up
@@ -113,5 +146,28 @@ class SignupForm extends React.Component {
   }
 }
 
-const form = reduxForm({ form: "signup" })(SignupForm);
+function validate(values) {
+  const errors = {};
+
+  if (!values.email) {
+    errors.email = "Please enter an email";
+  } else if (!validateEmails(values.email)) {
+    errors.email = "Please enter a valid email";
+  }
+
+  if (!values.password) {
+    errors.password = "Please enter a password";
+  }
+
+  if (!values.passwordConfirm) {
+    errors.passwordConfirm = "Please enter a password confirmation";
+  }
+
+  if (values.password !== values.passwordConfirm) {
+    errors.password = "Passwords must match";
+  }
+  return errors;
+}
+
+const form = reduxForm({ form: "signup", validate })(SignupForm);
 export default connect(null, actions)(form);

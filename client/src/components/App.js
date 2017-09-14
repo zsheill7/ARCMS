@@ -7,7 +7,8 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
-const SurveyNew = () => <h2>SurveyNew</h2>;
+import SurveyNew from "./surveys/SurveyNew";
+import FixedMenu from "./FixedMenu";
 
 class App extends Component {
   componentDidMount() {
@@ -18,9 +19,16 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          minHeight: 700,
+          padding: "1em 0em",
+          backgroundImage: "url('/assets/images/datboi.jpg')"
+        }}
+      >
         <BrowserRouter>
           <div>
+            <FixedMenu />
             <Route
               exact
               path="/"

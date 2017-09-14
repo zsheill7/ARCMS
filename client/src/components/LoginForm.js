@@ -12,7 +12,6 @@ import {
 import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
-import FixedMenu from "./FixedMenu";
 import * as actions from "../actions";
 
 class LoginForm extends React.Component {
@@ -23,7 +22,23 @@ class LoginForm extends React.Component {
     this.props.loginUser({ email, password });
   }
 
-  renderInput({ label, placeholder, icon, ...field }) {
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+      );
+    }
+  }
+
+  renderInput({
+    label,
+    placeholder,
+    icon,
+    meta: { touched, error, warning },
+    ...field
+  }) {
     return (
       <Form.Field>
         <Input
@@ -33,6 +48,15 @@ class LoginForm extends React.Component {
           type="text"
           className="form-control"
         />
+        {touched &&
+          ((error &&
+            <span style={{ color: "red" }}>
+              {error}
+            </span>) ||
+            (warning &&
+              <span>
+                {warning}
+              </span>))}
       </Form.Field>
     );
   }
@@ -52,7 +76,6 @@ class LoginForm extends React.Component {
           }}
           vertical
         >
-          <FixedMenu />
           <Container text>
             <div className="login-form">
               <style>{`
@@ -96,8 +119,8 @@ class LoginForm extends React.Component {
                         fluid
                         size="large"
                         color="google plus"
-                        style={{ marginTop: "1em" }}
                         href="/auth/google"
+                        style={{ marginTop: "1em" }}
                       >
                         <Icon name="google" /> Sign In With Google
                       </Button>
@@ -116,5 +139,18 @@ class LoginForm extends React.Component {
   }
 }
 
-const form = reduxForm({ form: "login" })(LoginForm);
+function validate(values) {
+  const errors = {};
+
+  if (!values.email) {
+    errors.email = "Please enter an email";
+  }
+
+  if (!values.password) {
+    errors.password = "Please enter a password";
+  }
+  return errors;
+}
+
+const form = reduxForm({ form: "login", validate })(LoginForm);
 export default connect(null, actions)(form);

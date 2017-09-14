@@ -38,7 +38,6 @@ export default class LandingPage extends Component {
             }}
             vertical
           >
-            <FixedMenu />
             <Container text>
               <Header
                 as="h1"
