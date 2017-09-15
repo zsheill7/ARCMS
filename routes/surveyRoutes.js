@@ -9,7 +9,7 @@ const Survey = mongoose.model("surveys");
 module.exports = app => {
   app.post(
     "/api/surveys" /*requireCredits,*/,
-    /*requireLogin,*/
+    requireLogin,
     async (req, res) => {
       const { title, subject, body, recipients } = req.body;
 
@@ -20,7 +20,7 @@ module.exports = app => {
         recipients: recipients
           .split(",")
           .map(email => ({ email: email.trim() })),
-        //_user: req.user.id,
+        _user: req.user.id,
         dateSent: Date.now()
       });
 
@@ -30,10 +30,10 @@ module.exports = app => {
       try {
         await mailer.send();
         await survey.save();
-        //req.user.credits -= 1;
-        //const user = await req.user.save();
+        req.user.credits -= 1;
+        const user = await req.user.save();
 
-        //res.send(user);
+        res.send(user);
       } catch (err) {
         res.status(422).send(err);
       }
