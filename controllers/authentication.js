@@ -15,10 +15,6 @@ exports.fetchUser = (req, res, next) => {
   console.log(req.body.token);
   const decodedToken = jwt_decode(req.body.token);
   console.log(decodedToken.sub);
-  /*passport.authenticate("jwt", decodedToken, (req, res) => {
-    console.log("jwt authenticate");
-    res.send(req.user);
-  });*/
   User.findById(decodedToken.sub, (err, user) => {
     if (err) {
       console.log(err);
