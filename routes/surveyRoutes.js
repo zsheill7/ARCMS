@@ -9,7 +9,7 @@ const Survey = mongoose.model("surveys");
 module.exports = app => {
   app.post(
     "/api/surveys" /*requireCredits,*/,
-    requireLogin,
+    //requireLogin,
     async (req, res) => {
       const { title, subject, body, recipients } = req.body;
 
@@ -39,4 +39,18 @@ module.exports = app => {
       }
     }
   );
+
+  app.get("/api/surveys", async (req, res) => {
+    const surveys = await Survey.find({});
+    console.log("surveys");
+    console.log(surveys);
+    res.send(surveys);
+  });
+  /*find({ _user: req.user.id })..select({
+    recipients: false
+  });*/
+
+  app.get("/api/surveys/:surveyId/:choice", (req, res) => {
+    res.send("Thanks for voting!");
+  });
 };

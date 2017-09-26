@@ -13,7 +13,7 @@ const userSchema = new Schema({
   password: { type: String, default: "" }
 });
 
-userSchema.pre("save", function(next) {
+/*userSchema.pre("save", function(next) {
   // get access to the user model
   const user = this;
 
@@ -44,6 +44,6 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
 
     callback(null, isMatch);
   });
-};
+};*/
 
 mongoose.model("users", userSchema);

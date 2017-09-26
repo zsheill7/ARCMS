@@ -7,7 +7,8 @@ import {
   Message,
   Segment,
   Container,
-  Icon
+  Icon,
+  Label
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
@@ -25,9 +26,11 @@ class LoginForm extends React.Component {
   renderAlert() {
     if (this.props.errorMessage) {
       return (
-        <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
-        </div>
+        <Container fluid text>
+          <div style={{ color: "red" }}>
+            Oops! {this.props.errorMessage}
+          </div>
+        </Container>
       );
     }
   }
@@ -112,6 +115,7 @@ class LoginForm extends React.Component {
                         icon="lock"
                         placeholder="Password"
                       />
+                      {this.renderAlert()}
                       <Button fluid action="submit">
                         Login
                       </Button>
@@ -152,5 +156,9 @@ function validate(values) {
   return errors;
 }
 
+function mapStateToProps(state) {
+  return { errorMessage: "" };
+}
+
 const form = reduxForm({ form: "login", validate })(LoginForm);
-export default connect(null, actions)(form);
+export default connect(mapStateToProps, actions)(form);

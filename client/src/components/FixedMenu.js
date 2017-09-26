@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Menu, Button, Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import Payments from "./Payments";
+import * as actions from "../actions";
 
 class FixedMenu extends Component {
   renderContent() {
@@ -26,7 +27,11 @@ class FixedMenu extends Component {
             <Button style={{ marginLeft: "0.5em" }}>
               Credits: {this.props.auth.credits}
             </Button>
-            <Button href="/api/logout" as="a" style={{ marginLeft: "0.5em" }}>
+            <Button
+              href={this.props.logoutUser()}
+              as="a"
+              style={{ marginLeft: "0.5em" }}
+            >
               Log out
             </Button>
           </div>
@@ -38,13 +43,12 @@ class FixedMenu extends Component {
     return (
       <div>
         <Container>
-          <Menu inverted pointing secondary size="large">
+          <Menu pointing secondary size="large">
             <Menu.Item href={this.props.auth ? "/surveys" : "/"} as="a" active>
               Home
             </Menu.Item>
-            <Menu.Item as="a">Work</Menu.Item>
-            <Menu.Item as="a">Company</Menu.Item>
-            <Menu.Item as="a">Careers</Menu.Item>
+            <Menu.Item as="a">Community</Menu.Item>
+            <Menu.Item as="a">My Account</Menu.Item>
             <Menu.Item position="right">
               {this.renderContent()}
             </Menu.Item>
@@ -59,4 +63,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps)(FixedMenu);
+export default connect(mapStateToProps, actions)(FixedMenu);

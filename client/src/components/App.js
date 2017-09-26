@@ -7,23 +7,24 @@ import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
+import ObjectDashboard from "./ObjectDashboard";
 import SurveyNew from "./surveys/SurveyNew";
 import FixedMenu from "./FixedMenu";
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    const token = localStorage.getItem("token");
-    this.props.fetchLocalUser({ token });
+    //const token = localStorage.getItem("token");
+    //this.props.fetchLocalUser({ token });
   }
-
+  //"url('/assets/images/tealbackground.jpg')"
   render() {
     return (
       <div
         style={{
           minHeight: 700,
           padding: "1em 0em",
-          backgroundImage: "url('/assets/images/datboi.jpg')"
+          backgroundColor: "#E9E9E9"
         }}
       >
         <BrowserRouter>
@@ -42,6 +43,7 @@ class App extends Component {
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/signup" component={SignupForm} />
             <Route exact path="/surveys" component={Dashboard} />
+            <Route exact path="/objects" component={ObjectDashboard} />
             <Route path="/surveys/new" component={SurveyNew} />
           </div>
         </BrowserRouter>

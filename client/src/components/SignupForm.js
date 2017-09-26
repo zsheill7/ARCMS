@@ -151,7 +151,7 @@ function validate(values) {
 
   if (!values.email) {
     errors.email = "Please enter an email";
-  } else if (!validateEmails(values.email)) {
+  } else if (validateEmails(values.email)) {
     errors.email = "Please enter a valid email";
   }
 
@@ -161,9 +161,7 @@ function validate(values) {
 
   if (!values.passwordConfirm) {
     errors.passwordConfirm = "Please enter a password confirmation";
-  }
-
-  if (values.password !== values.passwordConfirm) {
+  } else if (values.password !== values.passwordConfirm) {
     errors.password = "Passwords must match";
   }
   return errors;
