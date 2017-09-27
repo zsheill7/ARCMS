@@ -8,7 +8,7 @@ import validateEmails from "../../utils/validateEmails";
 import formFields from "./formFields";
 import Dropzone from "../Dropzone";
 
-class SurveyForm extends Component {
+class UploadForm extends Component {
   render() {
     return (
       <div>
@@ -39,6 +39,9 @@ class SurveyForm extends Component {
                     style={{ opacity: 1 }}
                   >
                     <Segment stacked>
+                      <div style={{ height: "200px" }}>
+                        <Dropzone />
+                      </div>
                       {this.renderFields()}
                       <Link to="/surveys" style={{ marginLeft: 0 }}>
                         <Button color="red">Cancel</Button>
@@ -94,4 +97,4 @@ export default reduxForm({
   validate,
   form: "surveyForm",
   destroyOnUnmount: false
-})(SurveyForm);
+})(UploadForm);

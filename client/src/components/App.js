@@ -9,6 +9,7 @@ import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import ObjectDashboard from "./ObjectDashboard";
 import SurveyNew from "./surveys/SurveyNew";
+import UploadNew from "./objects/UploadNew";
 import FixedMenu from "./FixedMenu";
 
 class App extends Component {
@@ -43,7 +44,8 @@ class App extends Component {
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/signup" component={SignupForm} />
             <Route exact path="/surveys" component={Dashboard} />
-            <Route exact path="/objects" component={ObjectDashboard} />
+            <Route exact path="/arobjects" component={ObjectDashboard} />
+            <Route exact path="/arobjects/new" component={UploadNew} />
             <Route path="/surveys/new" component={SurveyNew} />
           </div>
         </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchARObjects } from "../actions";
+import { fetchARObjects } from "../../actions";
 import { Card, Grid, Image, Button } from "semantic-ui-react";
 
 class ARObjectList extends Component {
